@@ -13,8 +13,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # install smallweb
-RUN curl -fsSL https://install.smallweb.run?v=${SMALLWEB_VERSION} | sh
-RUN mv /root/.local/bin/smallweb /usr/local/bin/smallweb
+RUN curl -fsSL 'https://install.smallweb.run?v=0.11.0-rc.1&target_dir=/usr/local/bin' | sh
 
 RUN useradd -m -s /bin/bash ${USERNAME}
 RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}
