@@ -27,7 +27,11 @@ if [ ! -f "/home/${USERNAME}/.config/smallweb/config.json" ]; then
 }
 EOF
     mkdir -p "/home/${USERNAME}/$FLY_APP_NAME.fly.dev"
-    echo "Hello, World!" > "/home/${USERNAME}/$FLY_APP_NAME.fly.dev/index.html"
+    cat <<EOF > "/home/${USERNAME}/$FLY_APP_NAME.fly.dev/main.ts"
+export default {
+    fetch: () => Response.json({ message: "Hello from smallweb running on fly!" })
+}
+EOF
 fi
 
 sudo /usr/sbin/sshd
