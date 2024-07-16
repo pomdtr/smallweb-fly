@@ -1,4 +1,4 @@
-# Smallweb on fly.io
+# Smallweb on fly.io (with SSH)
 
 ## Edit the `fly.toml` file
 
