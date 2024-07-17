@@ -53,5 +53,5 @@ The best editing experience can be achieved by using [mutagen](https://mutagen.i
 
 ```sh
 # sync the local directory ~/pomdtr.me with the remote directory /home/fly/pomdtr.me
-mutagen create --name=fly --ignore-vcs ~/pomdtr.me fly@<app-name>.fly.dev:/home/fly/pomdtr.me
+mutagen sync create --name=fly --ignore-vcs --ignore=node_modules ~/pomdtr.me fly@<app-name>.fly.dev:/home/fly/pomdtr.me
 ```
