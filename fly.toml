@@ -1,27 +1,28 @@
-# fly.toml app configuration file generated for smallweb on 2024-07-15T20:23:53+02:00
+# fly.toml app configuration file generated for smallweb on 2024-08-28T22:13:09+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
-app = "smallweb"
-primary_region = "cdg"
+
+app = 'smallweb'
+primary_region = 'cdg'
 
 [build]
 dockerfile = 'Dockerfile'
 
 [[mounts]]
-source = 'smallweb_apps'
-destination = '/home/fly'
+source = 'smallweb_data'
+destination = '/home/fly/smallweb'
 
 [http_service]
-internal_port = 7777
+internal_port = 8080
 
 [[services]]
-internal_port = 2222
-protocol = "tcp"
-[[services.ports]]
-port = 22
+protocol = 'tcp'
+internal_port = 8081
 
+[[services.ports]]
+port = 8081
 
 [[vm]]
-size = "shared-cpu-1x"
-memory = "256mb"
+size = 'shared-cpu-1x'
+memory = '256mb'

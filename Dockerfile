@@ -1,28 +1,17 @@
-FROM denoland/deno:1.45.2
-
-ARG SMALLWEB_VERSION=0.11.0-rc.1
-ARG USERNAME="fly"
+FROM denoland/deno:1.46.1
 
 RUN apt-get update \
-    && apt-get install -y sudo curl vim openssh-server \
-    && cp /etc/ssh/sshd_config /etc/ssh/sshd_config-original \
-    && sed -i 's/^#\s*Port.*/Port 2222/' /etc/ssh/sshd_config \
-    && sed -i 's/^#\s*PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
-    && mkdir /var/run/sshd \
-    && chmod 755 /var/run/sshd \
+    && apt-get install -y curl rclone \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# install smallweb
-RUN curl -fsSL 'https://install.smallweb.run?v=0.11.0-rc.1&target_dir=/usr/local/bin' | sh
+ARG SMALLWEB_VERSION=0.13.0-rc.1
+RUN curl -fsSL 'https://install.smallweb.run?v=${SMALLWEB_VERSION}&target_dir=/usr/local/bin' | sh
 
-RUN useradd -m -s /bin/bash ${USERNAME}
-RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}
+RUN useradd -m -s /bin/bash fly
+RUN chown fly:fly /home/fly
 
-RUN echo "%${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+WORKDIR /home/fly
+USER fly
 
-WORKDIR /home/${USERNAME}
-USER ${USERNAME}
-
-COPY --chown=${USERNAME}:${USERNAME} entrypoint.sh /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["smallweb", "up", "--host=0.0.0.0"]
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

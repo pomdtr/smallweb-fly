@@ -32,26 +32,13 @@ You can ssh to your vm using `ssh fly@<app-name>.fly.dev`.
 ## Adding a custom domain
 
 ```sh
-fly certs create '*.pomdtr.me'
+fly certs create '*.example.com'
+fly certs create 'example.com'
+fly secrets set "SMALLWEB_DOMAIN=example.com"
 ```
 
 You can check the status of your certificates with `fly certs show <hostname>`.
 
 You can then update your DNS records to point to the IP address of your app, and update the `smallweb config` to use your custom domain.
 
-```jsonc
-// ~/.config/smallweb/config.json
-{
-    "domains": {
-        "smallweb.fly.dev": "~/smallweb.fly.dev",
-        "*.pomdtr.me": "~/pomdtr.me"
-    }
-}
-```
-
-The best editing experience can be achieved by using [mutagen](https://mutagen.io/) tool.
-
-```sh
-# sync the local directory ~/pomdtr.me with the remote directory /home/fly/pomdtr.me
-mutagen sync create --name=fly --ignore-vcs --ignore=node_modules ~/pomdtr.me fly@<app-name>.fly.dev:/home/fly/pomdtr.me
-```
+You'll be able to edit your files by using the webdav server running at `webdav.<your-domain>`.
