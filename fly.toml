@@ -3,12 +3,12 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'smallweb'
-primary_region = 'cdg'
+app = 'smallweb'       # choose a unique name for your app
+primary_region = 'cdg' # select the region closest to you or your users
 
 [env]
+SMALLWEB_DOMAIN = 'example.com'     # change this to your domain
 SMALLWEB_DIR = '/home/fly/smallweb'
-SMALLWEB_DOMAIN = 'example.com'
 SMALLWEB_HOST = '0.0.0.0'
 SMALLWEB_PORT = '8080'
 

@@ -45,7 +45,7 @@ fly certs create 'example.com'
 fly certs create '*.example.com'
 ```
 
-You can check the status of your certificates with `fly certs show <hostname>` (the wildcard certificates can take a few dozen minutes to be issued).
+You can check the status of your certificates with `fly certs show <hostname>` (in my case, the wildcard certificate took half an hour to be issued).
 
 You can then update your DNS records to point to the IP address of your app (see <https://fly.io/docs/networking/custom-domain/>)
 
